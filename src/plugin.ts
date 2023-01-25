@@ -90,10 +90,6 @@ export class TwigAssetWebpackPlugin {
         },
         () => {
           assetReferences.forEach((requestedAsset) => {
-            if (this.isAssetHandled(requestedAsset)) {
-              return;
-            }
-
             const requestedAssetPath = path.join(assetPath, requestedAsset);
             if (!fs.existsSync(requestedAssetPath)) {
               compilation.errors.push(
@@ -111,7 +107,9 @@ export class TwigAssetWebpackPlugin {
                 requestedAssetPath
               );
 
-              this.setAssetHandled(requestedAsset, requestedAssetPath);
+              if (!this.isAssetHandled(requestedAsset)) {
+                this.setAssetHandled(requestedAsset, requestedAssetPath);
+              }
             } catch (e) {
               compilation.errors.push(
                 new webpack.WebpackError(
