@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import fs from 'fs';
 import path from 'path';
 
@@ -22,7 +23,7 @@ export class AssetLocator implements AssetLocatorInterface {
      * ((?!\1).+) Match anything that isn't the matched quote character
      * \1         Match the end of the quote
      */
-    assetMatch: /asset\((['"])((?!\1).+)\1\)/g,
+    assetMatch: /asset\((['"])((?!\1).*?)\1\)/g,
     assetMatchIndex: 2,
     excludedMatches: [/node_modules/],
   };
