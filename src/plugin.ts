@@ -24,7 +24,7 @@ export class TwigAssetWebpackPlugin {
   private readonly PLUGIN_NAME = 'TwigAssetWebpackPlugin';
 
   private readonly configuration: TwigAssetWebpackPluginConfig;
-  private readonly handledAssets: Record<string, string[]> = {};
+  private handledAssets: Record<string, string[]> = {};
 
   public constructor(
     config:
@@ -44,10 +44,13 @@ export class TwigAssetWebpackPlugin {
   }
 
   public apply(compiler: webpack.Compiler): void {
-    const { assetLocator, assetPath } = this.configuration;
-    const assetReferences = assetLocator.findAssetReferences();
+    compiler.hooks.watchRun.tap(this.PLUGIN_NAME, () => {
+      this.handledAssets = {};
+    });
 
     compiler.hooks.thisCompilation.tap(this.PLUGIN_NAME, (compilation) => {
+      const { assetLocator, assetPath } = this.configuration;
+      const assetReferences = assetLocator.findAssetReferences();
       // Add a hook to mark the module's files as handled to prevent them from
       // being processed as assets.
       compilation.hooks.recordModules.tap(this.PLUGIN_NAME, (modules) => {

@@ -3,6 +3,12 @@
   "version": "2.0.0",
   "description": "Webpack 5 plugin to add assets referenced in twig files to the compilation as additional assets.",
   "author": "Erik Perri",
+  "contributors": [
+    {
+      "name": "Łukasz Nurek",
+      "email": "lukasz.nurek@lcit.lubelskie.pl"
+    }
+  ],
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
